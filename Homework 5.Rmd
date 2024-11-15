@@ -112,6 +112,8 @@ ggplot(results_summary, aes(x = mu_true, y = power)) +
   ) +
   theme_minimal()
 ```
+This plot shows that the power of the test (the probability of rejecting the null hypothesis) increases as the true mean mu grows, reaching near certainty (power close to 1) when mu >/= 4. This indicates that larger effect sizes makes it much more likely to detect a true effect.
+
 
 Plot the average estimates.
 ```{r averageplot, message = FALSE, warning = FALSE}
@@ -129,6 +131,6 @@ ggplot(results_summary, aes(x = mu_true)) +
   scale_color_manual(values = c("green", "red")) +
   theme(legend.position = "none")
 ```
-
+This plot illustrates the average estimate of mu as a function of the true mean. The green line represents the average estimate of mu across all simulations, which closely follows the true mu, showing that the estimator is unbiased. The red dashed line shows the average mu estimate only in cases where the null hypothesis was rejected. Here, the estimates are slightly higher than the true mu for smaller values, indicating a selection bias; only larger estimates tend to reject the null, skewing the mean upward in those cases.
 
 
