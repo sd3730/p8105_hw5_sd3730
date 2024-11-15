@@ -103,3 +103,15 @@ simulation_results = bind_rows(
   })
 )
 ```
+
+Then, calculate power and average estimates.
+
+``` r
+results_summary = simulation_results |>
+  group_by(mu_true) |>
+  summarize(
+    power = mean(p_value < alpha),
+    avg_mu_hat = mean(mu_hat),
+    avg_mu_hat_reject = mean(mu_hat[p_value < alpha])
+  )
+```
