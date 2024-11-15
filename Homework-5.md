@@ -71,3 +71,22 @@ mu_vals = 0:6
 alpha = 0.05
 n_sim = 5000
 ```
+
+Then, I will define a function to simulate data, calculate the sample
+mean and p-value, and return results for each dataset.
+
+``` r
+simulate_t_test = function(mu, n, sigma, alpha) {
+  sample_data = rnorm(n, mean = mu, sd = sigma)
+  
+  t_test_result = t.test(sample_data, mu = 0)
+  
+  test_summary = broom::tidy(t_test_result)
+  
+  tibble(
+    mu_true = mu,
+    mu_hat = test_summary$estimate,
+    p_value = test_summary$p.value
+  )
+}
+```
