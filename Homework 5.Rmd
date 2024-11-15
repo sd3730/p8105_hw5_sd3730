@@ -76,3 +76,16 @@ simulate_t_test = function(mu, n, sigma, alpha) {
   )
 }
 ```
+
+I'll run simulations for each true mean value.
+```{r simtruemean, message = FALSE, warning = FALSE}
+set.seed(123)
+
+simulation_results = bind_rows(
+  lapply(mu_vals, function(mu) {
+    replicate(n_sim, simulate_t_test(mu, n, sigma, alpha), simplify = FALSE) |>
+      bind_rows()
+  })
+)
+```
+
