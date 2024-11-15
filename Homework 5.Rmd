@@ -12,6 +12,7 @@ library(dplyr)
 
 # Problem 1
 
+First, I will create a function to check if there are duplicate birthdays in a group of 'n' people.
 ```{r dup_bd, message = FALSE, warning = FALSE}
 has_duplicate_birthday = function(n) {
   birthdays = sample(1:365, n, replace = TRUE)
@@ -20,6 +21,7 @@ has_duplicate_birthday = function(n) {
 }
 ```
 
+Then, I will run the simulation 10,000 times for each group size and compute the probability of at least two people sharing a birthday.
 ```{r sim, message = FALSE, warning = FALSE}
 set.seed(123)
 
@@ -28,6 +30,7 @@ probabilities = sapply(2:50, function(n) {
 })
 ```
 
+This is a plot that visualizes how the probability changes as the group size increases.
 ```{r bdayplot, message = FALSE, warning = FALSE}
 prob_data = data.frame(
   group_size = 2:50, 
@@ -43,3 +46,4 @@ ggplot(prob_data, aes(x = group_size, y = probability)) +
   ) +
   theme_minimal()
 ```
+The graph illustrate that as group size increases, the probability of at least two people sharing a birthday rises sharply. As the group size approaches 50, the probability nears 100%, meaning it's almost certain that two people will share a birthday in larger groups. This trend highlights how quickly the likelihood of shared birthdays increases with group size, even when birthdays are assumed to be evenly distributed.
