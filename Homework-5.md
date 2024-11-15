@@ -115,3 +115,19 @@ results_summary = simulation_results |>
     avg_mu_hat_reject = mean(mu_hat[p_value < alpha])
   )
 ```
+
+Plot the power curve.
+
+``` r
+ggplot(results_summary, aes(x = mu_true, y = power)) +
+  geom_line(color = "blue") +
+  geom_point(color = "blue") +
+  labs(
+    title = "Power of the Test vs. True Mean Value",
+    x = "True Mean (mu)",
+    y = "Power (Probability of Rejecting Null)"
+  ) +
+  theme_minimal()
+```
+
+![](Homework-5_files/figure-gfm/powerplot-1.png)<!-- -->
