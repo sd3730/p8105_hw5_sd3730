@@ -218,3 +218,23 @@ homicides_summary = homicides_summary |>
   unnest(prop_results) |>
   select(city_state, estimate, conf.low, conf.high)
 ```
+
+#### Plot the proportions and confidence intervals
+
+``` r
+homicides_summary = homicides_summary |>
+  arrange(desc(estimate))
+
+ggplot(homicides_summary, aes(x = reorder(city_state, estimate), y = estimate)) +
+  geom_point(color = "blue") +
+  geom_errorbar(aes(ymin = conf.low, ymax = conf.high), width = 0.25) +
+  coord_flip() +
+  labs(
+    title = "Proportion of Unsolved Homicides by City",
+    x = "City",
+    y = "Proportion of Unsolved Homicides"
+  ) +
+  theme_minimal()
+```
+
+![](Homework-5_files/figure-gfm/unsolved_plots-1.png)<!-- -->
