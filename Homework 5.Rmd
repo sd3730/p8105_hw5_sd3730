@@ -19,3 +19,11 @@ has_duplicate_birthday = function(n) {
   return(any(duplicated(birthdays)))
 }
 ```
+
+```{r sim, message = FALSE, warning = FALSE}
+set.seed(123)
+
+probabilities = sapply(2:50, function(n) {
+  mean(replicate(10000, has_duplicate_birthday(n)))
+})
+```
