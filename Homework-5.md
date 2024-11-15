@@ -197,3 +197,24 @@ baltimore_prop_test = prop.test(
 baltimore_results = tidy(baltimore_prop_test) |>
   select(estimate, conf.low, conf.high)
 ```
+
+#### Estimate proportion of unsolved homicides for all cities
+
+``` r
+homicides_summary = homicides_data |>
+  mutate(city_state = str_c(city, ", ", state)) |>
+  group_by(city_state) |>
+  summarize(
+    total_homicides = n(),
+    unsolved_homicides = sum(disposition %in% c("Closed without arrest", "Open/No arrest"))
+  )
+
+homicides_summary = homicides_summary |>
+  filter(total_homicides >= 10) |>
+  mutate(
+    prop_test = map2(unsolved_homicides, total_homicides, ~prop.test(.x, .y)),
+    prop_results = map(prop_test, tidy)
+  ) |>
+  unnest(prop_results) |>
+  select(city_state, estimate, conf.low, conf.high)
+```
