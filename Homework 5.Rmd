@@ -27,3 +27,19 @@ probabilities = sapply(2:50, function(n) {
   mean(replicate(10000, has_duplicate_birthday(n)))
 })
 ```
+
+```{r bdayplot, message = FALSE, warning = FALSE}
+prob_data = data.frame(
+  group_size = 2:50, 
+  probability = probabilities
+)
+
+ggplot(prob_data, aes(x = group_size, y = probability)) +
+  geom_line(color = "blue") +
+  labs(
+    title = "Probability of Shared Birthday in a Group",
+    x = "Group Size",
+    y = "Probability of Shared Birthday"
+  ) +
+  theme_minimal()
+```
