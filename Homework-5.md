@@ -11,8 +11,7 @@ library(broom)
 
 # Problem 1
 
-First, I will create a function to check if there are duplicate
-birthdays in a group of ‘n’ people.
+#### Create a function to check if there are duplicate birthdays in a group of ‘n’ people.
 
 ``` r
 has_duplicate_birthday = function(n) {
@@ -22,8 +21,7 @@ has_duplicate_birthday = function(n) {
 }
 ```
 
-Then, I will run the simulation 10,000 times for each group size and
-compute the probability of at least two people sharing a birthday.
+#### Run the simulation 10,000 times for each group size and compute the probability of at least two people sharing a birthday.
 
 ``` r
 set.seed(123)
@@ -33,8 +31,7 @@ probabilities = sapply(2:50, function(n) {
 })
 ```
 
-This is a plot that visualizes how the probability changes as the group
-size increases.
+#### Plot the probability changes as the group size increases.
 
 ``` r
 prob_data = data.frame(
@@ -62,7 +59,7 @@ even when birthdays are assumed to be evenly distributed.
 
 # Problem 2
 
-First, I will define the parameters.
+#### Define the parameters.
 
 ``` r
 n = 30
@@ -72,8 +69,7 @@ alpha = 0.05
 n_sim = 5000
 ```
 
-Then, I will define a function to simulate data, calculate the sample
-mean and p-value, and return results for each dataset.
+#### Define a function to simulate data, calculate the sample mean and p-value, and return results for each dataset.
 
 ``` r
 simulate_t_test = function(mu, n, sigma, alpha) {
@@ -91,7 +87,7 @@ simulate_t_test = function(mu, n, sigma, alpha) {
 }
 ```
 
-I’ll run simulations for each true mean value.
+#### Run simulations for each true mean value.
 
 ``` r
 set.seed(123)
@@ -104,7 +100,7 @@ simulation_results = bind_rows(
 )
 ```
 
-Then, calculate power and average estimates.
+#### Calculate power and average estimates.
 
 ``` r
 results_summary = simulation_results |>
@@ -116,7 +112,7 @@ results_summary = simulation_results |>
   )
 ```
 
-Plot the power curve.
+#### Plot the power curve.
 
 ``` r
 ggplot(results_summary, aes(x = mu_true, y = power)) +
@@ -136,7 +132,7 @@ hypothesis) increases as the true mean mu grows, reaching near certainty
 (power close to 1) when mu \>/= 4. This indicates that larger effect
 sizes makes it much more likely to detect a true effect.
 
-Plot the average estimates.
+#### Plot the average estimates.
 
 ``` r
 ggplot(results_summary, aes(x = mu_true)) +
@@ -163,3 +159,26 @@ only in cases where the null hypothesis was rejected. Here, the
 estimates are slightly higher than the true mu for smaller values,
 indicating a selection bias; only larger estimates tend to reject the
 null, skewing the mean upward in those cases.
+
+# Problem 3
+
+#### Load the data and describe it
+
+``` r
+library(tidyverse)
+homicides_data <- read_csv("https://raw.githubusercontent.com/washingtonpost/data-homicides/master/homicide-data.csv")
+```
+
+#### Create the city_state Variable and Summarize Homicides
+
+``` r
+homicides_data = homicides_data |>
+  mutate(city_state = str_c(city, ", ", state))
+
+homicides_summary = homicides_data |>
+  group_by(city_state) |>
+  summarize(
+    total_homicides = n(),
+    unsolved_homicides = sum(disposition %in% c("Closed without arrest", "Open/No arrest"))
+  )
+```
