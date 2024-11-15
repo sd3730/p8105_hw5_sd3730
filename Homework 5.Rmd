@@ -113,7 +113,22 @@ ggplot(results_summary, aes(x = mu_true, y = power)) +
   theme_minimal()
 ```
 
-
+Plot the average estimates.
+```{r averageplot, message = FALSE, warning = FALSE}
+ggplot(results_summary, aes(x = mu_true)) +
+  geom_line(aes(y = avg_mu_hat), color = "green") +
+  geom_point(aes(y = avg_mu_hat), color = "green") +
+  geom_line(aes(y = avg_mu_hat_reject), color = "red", linetype = "dashed") +
+  geom_point(aes(y = avg_mu_hat_reject), color = "red") +
+  labs(
+    title = "Average Estimate of Mu by True Mean Value",
+    x = "True Mean (mu)",
+    y = "Average Estimate of Mu"
+  ) +
+  theme_minimal() +
+  scale_color_manual(values = c("green", "red")) +
+  theme(legend.position = "none")
+```
 
 
 
