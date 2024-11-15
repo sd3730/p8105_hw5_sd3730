@@ -169,7 +169,7 @@ library(tidyverse)
 homicides_data <- read_csv("https://raw.githubusercontent.com/washingtonpost/data-homicides/master/homicide-data.csv")
 ```
 
-#### Create the city_state Variable and Summarize Homicides
+#### Create the city_state variable and summarize homicides
 
 ``` r
 homicides_data = homicides_data |>
@@ -181,4 +181,19 @@ homicides_summary = homicides_data |>
     total_homicides = n(),
     unsolved_homicides = sum(disposition %in% c("Closed without arrest", "Open/No arrest"))
   )
+```
+
+#### Estimate the proportion of unsolved homicides for Baltimore
+
+``` r
+baltimore_data = homicides_summary |>
+  filter(city_state == "Baltimore, MD")
+
+baltimore_prop_test = prop.test(
+  baltimore_data$unsolved_homicides,
+  baltimore_data$total_homicides
+)
+
+baltimore_results = tidy(baltimore_prop_test) |>
+  select(estimate, conf.low, conf.high)
 ```
