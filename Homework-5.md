@@ -237,4 +237,14 @@ ggplot(homicides_summary, aes(x = reorder(city_state, estimate), y = estimate)) 
   theme_minimal()
 ```
 
-![](Homework-5_files/figure-gfm/unsolved_plots-1.png)<!-- -->
+![](Homework-5_files/figure-gfm/unsolved_plots-1.png)<!-- --> This graph
+shows the proportion of unsolved homicides across 50 large U.S. cities.
+Each city is represented by a blue dot, ordered by the estimated
+proportion of unsolved homicides (x-axis), with error bars indicating
+the confidence intervals. Cities at the top of the graph have higher
+rates of unsolved homicides, while those at the bottom have lower rates.
+The error bars (black lines) around each dot represent statistical
+uncertainty; shorter bars suggest more reliable estimates. This plot is
+based on data that was summarized by city, using statistical tests to
+estimate the proportion of unsolved homicides along with confidence
+intervals for each city.
