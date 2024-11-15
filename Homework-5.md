@@ -6,6 +6,7 @@ Stacey Dai
 ``` r
 library(ggplot2)
 library(dplyr)
+library(broom)
 ```
 
 # Problem 1
@@ -58,3 +59,15 @@ people sharing a birthday rises sharply. As the group size approaches
 people will share a birthday in larger groups. This trend highlights how
 quickly the likelihood of shared birthdays increases with group size,
 even when birthdays are assumed to be evenly distributed.
+
+# Problem 2
+
+First, I will define the parameters.
+
+``` r
+n = 30
+sigma = 5
+mu_vals = 0:6
+alpha = 0.05
+n_sim = 5000
+```

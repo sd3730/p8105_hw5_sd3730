@@ -8,6 +8,7 @@ output: github_document
 ```{r setup, message = FALSE, warning = FALSE}
 library(ggplot2)
 library(dplyr)
+library(broom)
 ```
 
 # Problem 1
@@ -47,3 +48,14 @@ ggplot(prob_data, aes(x = group_size, y = probability)) +
   theme_minimal()
 ```
 The graph illustrate that as group size increases, the probability of at least two people sharing a birthday rises sharply. As the group size approaches 50, the probability nears 100%, meaning it's almost certain that two people will share a birthday in larger groups. This trend highlights how quickly the likelihood of shared birthdays increases with group size, even when birthdays are assumed to be evenly distributed.
+
+# Problem 2
+
+First, I will define the parameters.
+```{r define, message = FALSE, warning = FALSE}
+n = 30
+sigma = 5
+mu_vals = 0:6
+alpha = 0.05
+n_sim = 5000
+```
